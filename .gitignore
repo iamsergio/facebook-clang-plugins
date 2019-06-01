@@ -1,6 +1,2 @@
 build
-clang-ocaml/.depend
-xcode/*
-*~
-clang/install
-clang/installed.version
+CMakeFiles
