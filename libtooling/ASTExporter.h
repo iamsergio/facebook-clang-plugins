@@ -1540,7 +1540,7 @@ void ASTExporter<ATDWriter>::VisitFunctionDecl(const FunctionDecl *D) {
   // FunctionProtoType::canThrow is more informative, consider using
   // CanThrowResult type instead
   // https://github.com/llvm-mirror/clang/commit/ce58cd720b070c4481f32911d5d9c66411963ca6
-  auto IsNoThrow = FPT ? FPT->isNothrow() : false;
+  //auto IsNoThrow = FPT ? FPT->isNothrow() : false;
   const FunctionDecl *DeclWithBody = D;
   // FunctionDecl::hasBody() will set DeclWithBody pointer to decl that
   // has body. If there is no body in all decls of that function,
@@ -1553,7 +1553,7 @@ void ASTExporter<ATDWriter>::VisitFunctionDecl(const FunctionDecl *D) {
   // suboptimal: decls_in_prototype_scope and parameters not taken into account
   // accurately
   int size = 2 + ShouldMangleName + HasStorageClass + IsInlineSpecified +
-             IsModulePrivate + IsPure + IsDeletedAsWritten + IsNoThrow +
+             IsModulePrivate + IsPure + IsDeletedAsWritten + /*IsNoThrow +*/
              IsVariadic + IsCpp + HasDeclarationBody + (bool)DeclWithBody +
              (bool)TemplateDecl;
   ObjectScope Scope(OF, size);
@@ -1583,7 +1583,7 @@ void ASTExporter<ATDWriter>::VisitFunctionDecl(const FunctionDecl *D) {
   OF.emitFlag("is_module_private", IsModulePrivate);
   OF.emitFlag("is_pure", IsPure);
   OF.emitFlag("is_delete_as_written", IsDeletedAsWritten);
-  OF.emitFlag("is_no_throw", IsNoThrow);
+  //OF.emitFlag("is_no_throw", IsNoThrow);
   OF.emitFlag("is_variadic", IsVariadic);
 
   //  if (const FunctionProtoType *FPT =
